@@ -3,6 +3,14 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/tbbcoach')
+  .then((response) => {
+    console.log('This is the response', response);
+  })
+
+  .catch ((err) => {
+    console.log('No data returned, error', err);
+});
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
