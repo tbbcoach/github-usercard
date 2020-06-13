@@ -92,7 +92,7 @@ axios.all([
       </div>
     </div>
 */
-function UserCard({data}) {
+function UserCard({ data }) {
 
   const card = document.createElement('div');
   const image = document.createElement('img');
@@ -105,13 +105,16 @@ function UserCard({data}) {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
+  const url = document.createElement('a');
 
   image.src = data.avatar_url;
   // image.src =;
   name.textContent = 'name:' + data.name;
   userName.textContent = 'User Name:' + data.login;
   location.textContent = 'location: ' + data.location;
-  profile.textContent = 'profile: ' + data.url;
+  url.textContent = data.url;
+  url.href = data.url;
+  profile.textContent = 'profile: ';
   followers.textContent = 'followers:' + data.followers;
   following.textContent = 'following:' + data.following;
   bio.textContent = 'Bio: ' + data.bio;
@@ -130,6 +133,7 @@ function UserCard({data}) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
+  profile.appendChild(url);
 
   
   return card;
