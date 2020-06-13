@@ -42,7 +42,36 @@ axios.get('https://api.github.com/users/tbbcoach')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',
+    'dustinmyers',
+    'wjonke',
+    'luishrd',
+  'bigknell'];
+    
+axios.all([
+  axios.get('https://api.github.com/users/tetondan'),
+  axios.get('https://api.github.com/users/dustinmyers'),
+  axios.get('https://api.github.com/users/lizhagag'),
+  axios.get('https://api.github.com/users/luishrd'),
+  axios.get('https://api.github.com/users/bigknell'),
+  
+]).then(axios.spread((res1, res2, res3, res4, res5) => {
+  console.log(res1);
+  console.log(res2);
+  console.log(res3);
+  console.log(res4);
+  console.log(res5);
+  cards.append(UserCard(res1));
+  cards.append(UserCard(res2));
+  cards.append(UserCard(res3));
+  cards.append(UserCard(res4));
+  cards.append(UserCard(res5));
+
+})
+  // .catch((err) => {
+  // console.log('Date not found -', err)
+)
+    
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
