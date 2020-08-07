@@ -3,10 +3,24 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards');
+console.log(cards);
+
+
+
+axios.get('https://api.github.com/users/tbbcoach')
+  .then((response) => {
+    console.log('This is the response', response);
+    cards.append(UserCard(response));
+    
+  }).catch((err) => {
+    console.log('No data returned, error', err);
+  });
+ 
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
+    github info! You will need to uanderstand the structure of this
     data in order to use it to build your component function
 
     Skip to STEP 3.
@@ -28,7 +42,36 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',
+    'dustinmyers',
+    'wjonke',
+    'luishrd',
+  'bigknell'];
+    
+axios.all([
+  axios.get('https://api.github.com/users/tetondan'),
+  axios.get('https://api.github.com/users/dustinmyers'),
+  axios.get('https://api.github.com/users/lizhagag'),
+  axios.get('https://api.github.com/users/luishrd'),
+  axios.get('https://api.github.com/users/bigknell'),
+  
+]).then(axios.spread((res1, res2, res3, res4, res5) => {
+  console.log(res1);
+  console.log(res2);
+  console.log(res3);
+  console.log(res4);
+  console.log(res5);
+  cards.append(UserCard(res1));
+  cards.append(UserCard(res2));
+  cards.append(UserCard(res3));
+  cards.append(UserCard(res4));
+  cards.append(UserCard(res5));
+
+})
+  // .catch((err) => {
+  // console.log('Date not found -', err)
+)
+    
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +92,65 @@ const followersArray = [];
       </div>
     </div>
 */
+function UserCard({ data }) {
 
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName
+    = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  const url = document.createElement('a');
+
+  image.src = data.avatar_url;
+  // image.src =;
+  name.textContent = 'name:' + data.name;
+  userName.textContent = 'User Name:' + data.login;
+  location.textContent = 'location: ' + data.location;
+  url.textContent = data.url;
+  url.href = data.url;
+  profile.textContent = 'profile: ';
+  followers.textContent = 'followers:' + data.followers;
+  following.textContent = 'following:' + data.following;
+  bio.textContent = 'Bio: ' + data.bio;
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(url);
+
+  
+  return card;
+  
+}
+// const cards = document.querySelector('.cards');
+// console.log(cards);
+
+// axios.get('https://api.github.com/users/tbbcoach')
+//   .then((response) => {
+//     console.log('This is the response', response);
+//     cards.append(UserCard(obj));
+//   })
+
+//   .catch((err) => {
+//     console.log('No data returned, error', err);
+//   });
 /*
   List of LS Instructors Github username's:
     tetondan
